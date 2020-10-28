@@ -42,33 +42,24 @@
 <script src="../exampleImageIdLoader.js"></script>
 
 <script>
-
     const onScreenCanvas = document.getElementById('onScreenCanvas');
     const onScreenContext = onScreenCanvas.getContext('webgl2');
 
-    onScreenCanvas.width = 1024;
-    onScreenCanvas.height = 1024;
-
-    const offScreenCanvas = document.createElement('canvas');
-
-    offScreenCanvas.width = 1024;
-    offScreenCanvas.height = 1024;
-
-    const gl = offScreenCanvas.getContext('webgl2');
+    onScreenCanvas.width = 10000;
+    onScreenCanvas.height = 10000;
 
     // Set clear color to black, fully opaque
-    gl.clearColor(1.0, 0.0, 0.0, 1.0);
+    onScreenContext.clearColor(1.0, 0.0, 0.0, 1.0);
     // Clear the color buffer with specified clear color
-    gl.clear(gl.COLOR_BUFFER_BIT);
+
 
     const t0 = performance.now();
 
+    onScreenContext.clear(onScreenContext.COLOR_BUFFER_BIT);
 
-    onScreenContext.drawImage(offScreenCanvas,0,0,1024,1024);
 
     const t1 = performance.now();
 
     console.log('TIME: ' + (t1-t0))
-
 </script>
 </html>

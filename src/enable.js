@@ -1,12 +1,12 @@
-import { addEnabledElement } from './enabledElements.js';
-import resize from './resize.js';
-import drawImageSync from './internal/drawImageSync.js';
-import requestAnimationFrame from './internal/requestAnimationFrame.js';
-import tryEnableWebgl from './internal/tryEnableWebgl.js';
-import triggerEvent from './triggerEvent.js';
-import generateUUID from './generateUUID.js';
-import EVENTS, { events } from './events.js';
-import getCanvas from './internal/getCanvas.js';
+import { addEnabledElement } from "./enabledElements.js";
+import resize from "./resize.js";
+import drawImageSync from "./internal/drawImageSync.js";
+import requestAnimationFrame from "./internal/requestAnimationFrame.js";
+import tryEnableWebgl from "./internal/tryEnableWebgl.js";
+import triggerEvent from "./triggerEvent.js";
+import generateUUID from "./generateUUID.js";
+import EVENTS, { events } from "./events.js";
+import getCanvas from "./internal/getCanvas.js";
 
 /**
  * @module Enable
@@ -21,8 +21,10 @@ import getCanvas from './internal/getCanvas.js';
  * @return {Boolean} Whether or not the Enabled Element has an active image or valid set of layers
  * @memberof Enable
  */
-function hasImageOrLayers (enabledElement) {
-  return enabledElement.image !== undefined || enabledElement.layers.length > 0;
+function hasImageOrLayers(enabledElement) {
+    return (
+        enabledElement.image !== undefined || enabledElement.layers.length > 0
+    );
 }
 
 /**
@@ -39,67 +41,67 @@ function hasImageOrLayers (enabledElement) {
  * @return {void}
  * @memberof Enable
  */
-export default function (element, options) {
-  if (element === undefined) {
-    throw new Error('enable: parameter element cannot be undefined');
-  }
-
-  // If this enabled element has the option set for WebGL, we should
-  // Check if this device actually supports it
-  if (
-    options &&
-    options.renderer &&
-    options.renderer.toLowerCase() === 'webgl'
-  ) {
-    tryEnableWebgl(options);
-  }
-
-  const canvas = getCanvas(element);
-
-  const enabledElement = {
-    element,
-    canvas,
-    image: undefined, // Will be set once image is loaded
-    invalid: false, // True if image needs to be drawn, false if not
-    needsRedraw: true,
-    options,
-    layers: [],
-    data: {},
-    renderingTools: {},
-    uuid: generateUUID()
-  };
-
-  addEnabledElement(enabledElement);
-
-  triggerEvent(events, EVENTS.ELEMENT_ENABLED, enabledElement);
-
-  resize(element, true);
-
-  /**
-   * Draw the image immediately
-   *
-   * @param {DOMHighResTimeStamp} timestamp The current time for when requestAnimationFrame starts to fire callbacks
-   * @returns {void}
-   * @memberof Drawing
-   */
-  function draw (timestamp) {
-    if (enabledElement.canvas === undefined) {
-      return;
+export default function(element, options) {
+    if (element === undefined) {
+        throw new Error("enable: parameter element cannot be undefined");
     }
 
-    const eventDetails = {
-      enabledElement,
-      timestamp
+    // If this enabled element has the option set for WebGL, we should
+    // Check if this device actually supports it
+    if (
+        options &&
+        options.renderer &&
+        options.renderer.toLowerCase() === "webgl"
+    ) {
+        tryEnableWebgl(options);
+    }
+
+    const canvas = getCanvas(element);
+
+    const enabledElement = {
+        element,
+        canvas,
+        image: undefined, // Will be set once image is loaded
+        invalid: false, // True if image needs to be drawn, false if not
+        needsRedraw: true,
+        options,
+        layers: [],
+        data: {},
+        renderingTools: {},
+        uuid: generateUUID()
     };
 
-    triggerEvent(enabledElement.element, EVENTS.PRE_RENDER, eventDetails);
+    addEnabledElement(enabledElement);
 
-    if (enabledElement.needsRedraw && hasImageOrLayers(enabledElement)) {
-      drawImageSync(enabledElement, enabledElement.invalid);
+    triggerEvent(events, EVENTS.ELEMENT_ENABLED, enabledElement);
+
+    resize(element, true);
+
+    /**
+     * Draw the image immediately
+     *
+     * @param {DOMHighResTimeStamp} timestamp The current time for when requestAnimationFrame starts to fire callbacks
+     * @returns {void}
+     * @memberof Drawing
+     */
+    function draw(timestamp) {
+        if (enabledElement.canvas === undefined) {
+            return;
+        }
+
+        const eventDetails = {
+            enabledElement,
+            timestamp
+        };
+
+        triggerEvent(enabledElement.element, EVENTS.PRE_RENDER, eventDetails);
+
+        if (enabledElement.needsRedraw && hasImageOrLayers(enabledElement)) {
+            drawImageSync(enabledElement, enabledElement.invalid);
+        }
+
+        requestAnimationFrame(draw);
     }
 
-    requestAnimationFrame(draw);
-  }
-
-  draw();
+    draw();
 }
