@@ -1,0 +1,280 @@
+    <!DOCTYPE HTML>
+<html>
+<head>
+    <!-- twitter bootstrap CSS stylesheet - not required by cornerstone -->
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+
+    <h1>
+        WebGL Example
+    </h1>
+
+    This is an example of WebGL use in cornerstone
+
+    <br>
+    <br>
+
+    <div class="row">
+        <div class="col-xs-2">
+
+
+            <div id="dicomImageWebGL1"
+                 style="width:200px;height:200px"
+                 oncontextmenu="return false"
+                 onmousedown="return false">
+            </div>
+
+            <div class="renderTime">ms</div>
+        </div>
+        
+        <div class="col-xs-2">
+
+
+            <div id="dicomImageWebGL2"
+                 style="width:200px;height:200px"
+                 oncontextmenu="return false"
+                 onmousedown="return false">
+            </div>
+
+            <div class="renderTime">ms</div>
+        </div>
+
+        <div class="col-xs-2">
+
+
+            <div id="dicomImageWebGL3"
+                 style="width:200px;height:200px"
+                 oncontextmenu="return false"
+                 onmousedown="return false">
+            </div>
+
+            <div class="renderTime">ms</div>
+        </div>
+
+        <div class="col-xs-2">
+
+
+            <div id="dicomImageWebGL4"
+                 style="width:200px;height:200px"
+                 oncontextmenu="return false"
+                 onmousedown="return false">
+            </div>
+
+            <div class="renderTime">ms</div>
+        </div>
+
+        <div class="col-xs-2">
+
+
+            <div id="dicomImageWebGL5"
+                 style="width:200px;height:200px"
+                 oncontextmenu="return false"
+                 onmousedown="return false">
+            </div>
+
+            <div class="renderTime">ms</div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-2">
+
+
+            <div id="dicomImageWebGL6"
+                 style="width:200px;height:200px"
+                 oncontextmenu="return false"
+                 onmousedown="return false">
+            </div>
+
+            <div class="renderTime">ms</div>
+        </div>
+        
+        <div class="col-xs-2">
+
+
+            <div id="dicomImageWebGL7"
+                 style="width:200px;height:200px"
+                 oncontextmenu="return false"
+                 onmousedown="return false">
+            </div>
+
+            <div class="renderTime">ms</div>
+        </div>
+
+        <div class="col-xs-2">
+
+
+            <div id="dicomImageWebGL8"
+                 style="width:200px;height:200px"
+                 oncontextmenu="return false"
+                 onmousedown="return false">
+            </div>
+
+            <div class="renderTime">ms</div>
+        </div>
+
+        <div class="col-xs-2">
+
+
+            <div id="dicomImageWebGL9"
+                 style="width:200px;height:200px"
+                 oncontextmenu="return false"
+                 onmousedown="return false">
+            </div>
+
+            <div class="renderTime">ms</div>
+        </div>
+
+        <div class="col-xs-2">
+
+
+            <div id="dicomImageWebGL10"
+                 style="width:200px;height:200px"
+                 oncontextmenu="return false"
+                 onmousedown="return false">
+            </div>
+
+            <div class="renderTime">ms</div>
+        </div>
+    </div>
+
+</div>
+</body>
+
+<!-- include the cornerstone library -->
+<script src="../../dist/cornerstone.js"></script>
+<script>window.cornerstone || document.write('<script src="https://unpkg.com/cornerstone-core">\x3C/script>')</script>
+
+<!-- include special code for these examples which provides images -->
+<script src="../exampleImageIdLoader.js"></script>
+
+<script>
+    const elementWebGL1 = document.getElementById('dicomImageWebGL1');
+    const elementWebGL2 = document.getElementById('dicomImageWebGL2');
+    const elementWebGL3 = document.getElementById('dicomImageWebGL3');
+    const elementWebGL4 = document.getElementById('dicomImageWebGL4');
+    const elementWebGL5 = document.getElementById('dicomImageWebGL5');
+    const elementWebGL6 = document.getElementById('dicomImageWebGL6');
+    const elementWebGL7 = document.getElementById('dicomImageWebGL7');
+    const elementWebGL8 = document.getElementById('dicomImageWebGL8');
+    const elementWebGL9 = document.getElementById('dicomImageWebGL9');
+    const elementWebGL10 = document.getElementById('dicomImageWebGL10');
+
+    // setup handlers before we display the image
+    function onImageRendered(e) {
+        const eventData = e.detail;
+
+        // set the canvas context to the image coordinate system
+        cornerstone.setToPixelCoordinateSystem(eventData.enabledElement, eventData.canvasContext);
+
+        const parent = eventData.element.parentNode;
+        parent.querySelector('.renderTime').textContent = + eventData.renderTimeInMs.toFixed(3) + " ms";
+    }
+
+    elementWebGL1.addEventListener('cornerstoneimagerendered', onImageRendered);
+    elementWebGL2.addEventListener('cornerstoneimagerendered', onImageRendered);
+    elementWebGL3.addEventListener('cornerstoneimagerendered', onImageRendered);
+    elementWebGL4.addEventListener('cornerstoneimagerendered', onImageRendered);
+    elementWebGL5.addEventListener('cornerstoneimagerendered', onImageRendered);
+    elementWebGL6.addEventListener('cornerstoneimagerendered', onImageRendered);
+    elementWebGL7.addEventListener('cornerstoneimagerendered', onImageRendered);
+    elementWebGL8.addEventListener('cornerstoneimagerendered', onImageRendered);
+    elementWebGL9.addEventListener('cornerstoneimagerendered', onImageRendered);
+    elementWebGL10.addEventListener('cornerstoneimagerendered', onImageRendered);
+
+    const imageId = 'example://1';
+
+    const options = {
+        renderer: 'webgl'
+    };
+
+    cornerstone.enable(elementWebGL1, options);
+    cornerstone.enable(elementWebGL2, options);
+    cornerstone.enable(elementWebGL3, options);
+    cornerstone.enable(elementWebGL4, options);
+    cornerstone.enable(elementWebGL5, options);
+    cornerstone.enable(elementWebGL6, options);
+    cornerstone.enable(elementWebGL7, options);
+    cornerstone.enable(elementWebGL8, options);
+    cornerstone.enable(elementWebGL9, options);
+    cornerstone.enable(elementWebGL10, options);
+
+    cornerstone.loadAndCacheImage(imageId).then(function(image) {
+        cornerstone.displayImage(elementWebGL1, image);
+        cornerstone.displayImage(elementWebGL2, image);
+        cornerstone.displayImage(elementWebGL3, image);
+        cornerstone.displayImage(elementWebGL4, image);
+        cornerstone.displayImage(elementWebGL5, image);
+        cornerstone.displayImage(elementWebGL6, image);
+        cornerstone.displayImage(elementWebGL7, image);
+        cornerstone.displayImage(elementWebGL8, image);
+        cornerstone.displayImage(elementWebGL9, image);
+        cornerstone.displayImage(elementWebGL10, image);
+    });
+
+    const elements = [elementWebGL1, elementWebGL2,elementWebGL3, elementWebGL4, elementWebGL5, elementWebGL6, elementWebGL7,elementWebGL8, elementWebGL9, elementWebGL10];
+
+
+    const mouseDownHandler = (e) => {
+        let lastX = e.pageX;
+        let lastY = e.pageY;
+
+        function mouseMoveHandler(e) {
+            const deltaX = e.pageX - lastX;
+            const deltaY = e.pageY - lastY;
+            lastX = e.pageX;
+            lastY = e.pageY;
+
+            elements.forEach(element => {
+                let viewport = cornerstone.getViewport(element);
+                viewport.voi.windowWidth += (deltaX / viewport.scale);
+                viewport.voi.windowCenter += (deltaY / viewport.scale);
+                cornerstone.setViewport(element, viewport);
+            })
+        }
+
+        function mouseUpHandler() {
+          document.removeEventListener('mousemove', mouseMoveHandler);
+          document.removeEventListener('mouseup', mouseUpHandler);
+        }
+
+        document.addEventListener('mousemove', mouseMoveHandler);
+        document.addEventListener('mouseup', mouseUpHandler);
+    }
+
+    elements.forEach(function(elem) {
+        elem.addEventListener('mousedown', mouseDownHandler);
+    })
+
+    
+    // elements.forEach(function(elem) {
+    //   // add event handlers to mouse move to adjust window/center
+    //   elem.addEventListener('mousedown', function (e) {
+    //     let lastX = e.pageX;
+    //     let lastY = e.pageY;
+
+    //     function mouseMoveHandler(e) {
+    //       const deltaX = e.pageX - lastX;
+    //       const deltaY = e.pageY - lastY;
+    //       lastX = e.pageX;
+    //       lastY = e.pageY;
+
+    //       let viewport = cornerstone.getViewport(elem);
+    //       viewport.voi.windowWidth += (deltaX / viewport.scale);
+    //       viewport.voi.windowCenter += (deltaY / viewport.scale);
+    //       cornerstone.setViewport(elem, viewport);
+    //     }
+
+    //     function mouseUpHandler() {
+    //       document.removeEventListener('mousemove', mouseMoveHandler);
+    //       document.removeEventListener('mouseup', mouseUpHandler);
+    //     }
+
+    //     document.addEventListener('mousemove', mouseMoveHandler);
+    //     document.addEventListener('mouseup', mouseUpHandler);
+    //   });
+    // });
+</script>
+</html>
